@@ -1,2 +1,1 @@
-# masterthesis-david-buergisser-hslu-bizres
- 
+    # masterthesis-david-buergisser-hslu-bizres
