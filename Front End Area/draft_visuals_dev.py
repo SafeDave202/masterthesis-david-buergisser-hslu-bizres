@@ -44,11 +44,13 @@ nltk.download('punkt')
 
 
 def main():
-
+    data = pd.read_clipboard(r"Data\Resultate\combined_results.csv")
     st.title("Report Analysis")
 
-    menu = os.listdir(
-        r"G:\Meine Ablage\HSLU\Master\Master Thesis\Coding Area\Data\Sustainability Reports\Already Done")
+    menu = data["Company"]
+
+    # menu = os.listdir(
+    #     r"..\Data\Nachhaltigkeitsberichte\Alle")
     choice = st.sidebar.selectbox("Menu", menu)
     # st.write(type(choice))
     st.write(
@@ -75,7 +77,7 @@ def main():
     #                 st.write()
     #                 st.write(raw_text)
 
-    path = fr"G:\Meine Ablage\HSLU\Master\Master Thesis\Coding Area\Data\Results\{choice[:-4]}_FullText_Scoring.csv"
+    path = fr"..\Data\Resultate\Sentence by Sentence Cosine Similarity raw\{choice[:-4]}abb_sustainability_performance_cosine_raw.csv"
     # st.write(path)
     df_fulltext = pd.read_csv(path
                               )
