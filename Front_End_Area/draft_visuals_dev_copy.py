@@ -5,6 +5,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+from streamlit_option_menu import option_menu
 
 
 def main():
@@ -22,34 +23,13 @@ def main():
         f"""Du hast den Bericht von {choice} gewählt. Falls Du dich über die lustigen Namen des Berichts wunders: dieser stellt sich aus den 3 meistgenannten
         Worten des Berichts zusammen. So siehst du gleich den Grad der Selbstverliebtheit der Firma. ;)""")
 
-    # # if choice == "Home":
-    # #     st.subheader("Home")
-    # #     input_file = st.file_uploader("Upload Report", type=[
-    # #         "pdf", "text", "docx"])
-    # #     if st.button("Process"):
-    # #         if input_file is not None:
-    # #             file_detail = {"filename": input_file.name,
-    # #                            "filetype": input_file.type, "filesize": input_file.size}
-    # #             st.write(file_detail)
-    # #             if file_detail["filetype"] == "application/pdf":
-    # #                 # try:
-    # #                 #     text = read_pdf(input_file)
-    # #                 #     st.write(text)
-
-    # #                 # except:
-    # #                 #     st.write("Didn't work")
-    # #                 raw_text = read_pdf(input_file)(raw_text)
-    # #                 # processed_text = remove_strange_characters
-    # #                 st.write()
-    # #                 st.write(raw_text)
-
-    choice_data = data[data["Company"] == choice]
+    choice_data = data[data["Company"] == choice].sort_values(by=["Label"])
     st.title("Sentence-BERT satzweise Analyse")
     st.write(
         """Hier werden die Scores Deiner Auswahl zu den fünf Label gezeigt. Jeder Satz wurde einzeln mit den Zieltexten von Wikipedia verglichen und bewertet.
         Die Scores repräsentieren die Mittelwerte de Bewertungen. Negative Bewertungen wurden automatisch auf 0 gesetzt.""")
     st.dataframe(
-        choice_data["Sentence Cosine Similarity Wiki Summarized Mean Threshold 0"])
+        choice_data[["Label", "Sentence Cosine Similarity Wiki Summarized Mean Threshold 0"]].sort_values(by=["Label"]))
     st.write("Dieser Polar-Plot zeigt die Verteilung visuell.")
     fig = px.line_polar(choice_data, r='Sentence Cosine Similarity Wiki Summarized Mean Threshold 0', theta='Label',
                         range_r=[0, 0.3], line_close=True, template="seaborn")
@@ -63,10 +43,11 @@ def main():
         Labeln prozentual zuzuweisen. Nachdem jeder Satz gescored wurde, wird der Durchschnitt berechnet. Auch hier gibt es wieder einen Threshold. Sobald ein Score
         kleiner als 0.05 ist, wird er nicht miteinbezogen, da sonst die Resultate zu verzerrt sind.""")
 
-    st.dataframe(choice_data["Zero Shot Learning Sentence Mean Threshold"])
+    st.dataframe(
+        choice_data[["Label", "Zero Shot Learning Sentence Mean Threshold"]].sort_values(by=["Label"]))
 
     fig = px.line_polar(choice_data, r='Zero Shot Learning Sentence Mean Threshold', theta='Label',
-                        range_r=[0, 0.6], line_close=True, template="seaborn")
+                        range_r=[0, 0.7], line_close=True, template="seaborn")
 
     st.plotly_chart(fig, use_container_width=True)
 
@@ -76,16 +57,13 @@ def main():
         Vom Modell her handels es sich um den selben Algorithmus wie im vorherigen Plot. Nur wurde diesmal nicht satzweise die Scores verteilt und anschliessend
         Durchschnittswerte berechnet, sondern der ganze Text ergab einen Score für jedes Label.""")
 
-    st.dataframe(choice_data["Zero Shot Fulltext"])
+    st.dataframe(
+        choice_data[["Label", "Zero Shot Fulltext"]].sort_values(by=["Label"]))
 
     fig = px.line_polar(choice_data, r='Zero Shot Fulltext', theta='Label',
                         range_r=[0, 0.6], line_close=True, template="seaborn")
 
     st.plotly_chart(fig, use_container_width=True)
-
-    # st.title("Comparison of the different approaches")
-    # st.write("""Since we have two times used the same similarity analysis; once with the full text and once with the topic rebuilt textes; we can see, if there is a difference
-    # between these two approaches in the similarity to the wikipedia texts""")
 
 
 if __name__ == '__main__':
