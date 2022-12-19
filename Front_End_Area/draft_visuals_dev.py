@@ -12,6 +12,7 @@ import numpy as np
 import cv2
 from st_aggrid import AgGrid
 import io
+import webbrowser
 
 
 def main():
@@ -22,10 +23,10 @@ def main():
 
                              menu_icon="app-indicator", default_index=0,
                              styles={
-            "container": {"padding": "5!important", "background-color": "#fafafa"},
-            "icon": {"color": "orange", "font-size": "25px"},
-            "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px", "--hover-color": "#eee"},
-            "nav-link-selected": {"background-color": "#02ab21"},
+            "container": {"padding": "5!important", "background-color": "#93D099"},
+            "icon": {"color": "black", "font-size": "25px"},
+            "nav-link": {"font-size": "16px", "text-align": "left", "margin": "0px", "--hover-color": "#D093BB"},
+            "nav-link-selected": {"background-color": "#D1BF94"},
         }
         )
 
@@ -36,17 +37,34 @@ def main():
     profile = Image.open(
         r'G:\Meine Ablage\GitHub\masterthesis-david-buergisser-hslu-bizres\Front_End_Area\Images\noun-touring-ski-692819.png')
     if choose == "About":
-        col1, col2 = st.columns([0.8, 0.2])
-        with col1:               # To display the header text using css style
-            st.markdown(""" <style> .font {
-            font-size:35px ; font-family: 'Cooper Black'; color: #FF9633;} 
-            </style> """, unsafe_allow_html=True)
-            st.markdown('<p class="font">About the Creator</p>',
-                        unsafe_allow_html=True)
-        with col2:               # To display brand log
-            st.image(logo, width=130)
+        # col1 = st.columns([0.8])
+        # with col1:               # To display the header text using css style
+        st.markdown(""" <style> .font {
+        font-size:35px ; font-family: 'Arial'; color: #FF9633;} 
+        </style> """, unsafe_allow_html=True)
+        st.markdown('<p class="font">Ein Versuch der Anwendung von Natural Language Processing auf Nachhaltigkeitsberichte</p>',
+                    unsafe_allow_html=True)
+        st.write(
+            "Prototype der visuellen Darstellung der Masterarbeit von David Bürgisser")
 
         st.write("Dies ist die Masterarbeit von David Bürgisser. Diese Streamlit-Website soll einen ersten Versuch der Visualisierung der Ergebnisse liefern.")
+        st.header("""Einleitung""")
+        st.write("""
+        Selten hatte eine Abstimmung so viel Aufmerksamkeit auf sich gezogen, wie jene vom 16. November 2020. Die Konzernverantwortungsinitiative «Für verantwortungsvolle Unter-nehmen – zum Schutz von Mensch und Umwelt» hat es geschafft die Menschen dazu zu bewegen Balkone mit orangenen Fahnen zu tapezieren während die Gegnerschaft Millio-nen in die grosse Anti-Kampagne gesteckt hat. Allen war bewusst; es steht viel auf dem Spiel. Plötzlich sollten Schweizer Unternehmen für die Arbeitsweisen ihrer Subsidiären in Drittweltländern verantwortlich sein? Genau dies wäre der Plan der Initiative gewesen und wurde durch das Ständemehr trotz Stimmmehrheit der Bevölkerung vereitelt. Der indirekte Gegenvorschlag veranlasst immerhin Schweizer Unternehmen ab einer gewissen Grösse dazu, per Geschäftsjahr 2023 jährlich über fünf nicht-finanzielle Belange zu berichten. Diese Themen umfassen die Bereiche Umwelt, Sozialbelange, Arbeitnehmerbelange, Men-schenrechte und Korruption.
+        Dies wird in Zukunft zwischen 200 und 1000 Berichten im Jahr bedeuten, welche gelesen und bewertet werden müssen. Eine Vernachlässigung des Einreichens sowie eine ungenü-gende Berichterstattung würde mit bis zu 100'000 CHF bestraft. Doch wie wird die Quali-tät der Prüfung sichergestellt? Wer kümmert sich um die Bewertung dieser berichte? Diese Fragen sind weitgehendst noch offen. Auch wenn sich einzelne Nichtregierungsorganisati-onen gewissen Berichten annehmen, wäre eine objektive Bewertung immer noch ausste-hend. An diesem Punkt setzt die vorliegende Arbeit an. Mit dem Auftraggeber Bizres wird versucht, Möglichkeiten der Data Science Domäne Natural Language Processing (NLP) zu erkunden, um eine objektive und einheitliche Bewertung von Nachhaltigkeitsberichten zu gewährleisten.
+        """)
+        st.header("Erkenntnisse")
+        st.write("""Während der Arbeit wurden verschiedene Ansätze getestet und ausprobiert. Zum einen wurden verschiedene Algorithmen in verschiedenen Techniken an den Texten getestet. Zum anderen wurden verschiedene Eingabetexte sowie Zieltexte verwendet.
+        Erste Erkenntnisse der Vergleichsanalysen konnten Korrelationen zwischen den Ansätzen Sentence-BERT-satzweise und Zero-Shot-Learning-satzweise aufzeigen. Dies sind zwei Verfahren, welche auf verschiedene Weisen jeden Satz einzeln analysieren und bewerten. Die Korrelation ist mit einem R2 von rund 57.7 % moderat mit einem P-Value unter 0.05.
+        Eine weitere Erkenntnis ist, dass die Algorithmen gewisse Belangen grundsätzlich höher bewerten als andere. Das Belangen Nachhaltigkeit wird in allen Ansätzen durchschnittlich höher bewertet als die anderen Belangen. Die Frage der Ursache kann in dieser Arbeit nicht abschliessend geklärt werden.
+        Des Weiteren ergab ein erster Vergleichstest beim Sentence-BERT-satzweise-Ansatz eine signifikante Differenz bei den Ergebnissen zwischen «Normalen Reports», «Fake Reports» und «DE-Reports». Dieser Ansatz konnte eine klare Trennung des Report-Typen aufzeigen.
+        Als letzter Vergleich zeigte der Austausch des Zieltextes zum Thema Menschenrechte beim Sentence-BERT-Ansatz eine signifikante Abweichung auf. Dadurch wird verdeut-licht, wie wichtig die Zieltexte als Bewertungskriterium sind.
+        """)
+        st.header("Handlungsempfehlungen")
+        st.write("""Die Ergebnisse zeigen auf, dass die gewählten Ansätze durchaus Potential haben. Als Handlungsempfehlungen bzw. Ausblick sind zwei Punkte besonders hervorzuheben.
+        Einerseits sollte die Report-Typ Zuteilung vertieft werden. Wenn ein gewählter Ansatz fähig ist, Reportarten bei einem grösseren Sampling voneinander zu unterscheiden, wäre dies eine starke Metrik, um die Fähigkeiten eines Algorithmus zu bewerten.
+        Zum anderen wird eine Fokussierung auf den Sentence-BERT-Ansatz empfohlen. Da eben dieser Ansatz als einziger fähig war, die Report-Typen auseinanderzuhalten, wäre eine Wei-terentwicklung und Vertiefung dieses Ansatz zu empfehlen. Dies kann auf zwei Ebenen passieren. Erstere wäre die Optimierung des Algorithmus via Fine-Tuning. Dies wird als sehr arbeitsintensiv erachtet. Zweitere wären weitere Vergleiche verschiedener Zieltexte, welche als Basis für die Bewertung dienen, interessant.
+        """)
         # st.image(profile, width=700)
 
 # second page
@@ -58,17 +76,20 @@ def main():
             path = "https://github.com/SafeDave202/masterthesis-david-buergisser-hslu-bizres/blob/754c92be5ec0e18d128609e435f549cd10c42b99/Data/Resultate/combined_results.csv?raw=true"
 
             data = pd.read_csv(path, index_col=0)
-            st.title("Report Analysis")
+            st.title("Report Analyse")
 
             menu = data["Company"].tolist()
             menu = set(menu)
+
+            st.write(
+                "Ganz unten kannst Du die Ergebnisse der verschiedenen Ansätze nebeneinander auf einen Blick durchklicken.")
 
             choice = st.sidebar.selectbox(
                 "Wähle einen Nachhaltigkeitsbericht", menu)
             # st.write(type(choice))
             st.write(
-                f"""Du hast den Bericht von {choice} gewählt. Falls Du dich über die lustigen Namen des Berichts wunders: dieser stellt sich aus den 3 meistgenannten
-                Worten des Berichts zusammen. So siehst du gleich den Grad der Selbstverliebtheit der Firma. ;)""")
+                f"""Du hast den Bericht von {choice} gewählt. Falls Du dich über die lustigen Namen des Berichts wunderst: dieser stellt sich aus den 3 meistgenannten
+                Worten des Berichts zusammen. So siehst Du gleich den Grad der Selbstverliebtheit der Firma. ;)""")
 
             choice_data = data[data["Company"] ==
                                choice].sort_values(by=["Label"])
@@ -171,6 +192,29 @@ def main():
             fig = px.scatter(choice_data, x=f"{choice_x}", y=f"{choice_y}")
 
             st.plotly_chart(fig, use_container_width=True)
+
+    elif choose == "Contact":
+        st.title("Kontakt")
+
+        st.write(
+            "Falls Du Fragen oder Anliegen zu dieser Arbeit hast; zögere nicht, mich zu kontaktieren. :)")
+
+        url_website = 'www.worldofdave.ch'
+        url_github = 'https://github.com/SafeDave202'
+        url_linkedin = 'https://www.linkedin.com/in/david-b%C3%BCrgisser-96068414b/'
+        url_mail = "mailto:dabuergi@protonmail.com"
+
+        if st.button('Fotografie Website'):
+            webbrowser.open_new_tab(url_website)
+
+        if st.button('LinkedIn'):
+            webbrowser.open_new_tab(url_linkedin)
+
+        if st.button('GitHub'):
+            webbrowser.open_new_tab(url_github)
+
+        if st.button('Mail'):
+            webbrowser.open_new_tab(url_mail)
 
 
 if __name__ == '__main__':
