@@ -40,7 +40,7 @@ def main():
         st.markdown('<p class="font">Ein Versuch der Anwendung von Natural Language Processing auf Nachhaltigkeitsberichte</p>',
                     unsafe_allow_html=True)
         st.write(
-            "Prototype der visuellen Darstellung der Masterarbeit von David Bürgisser")
+            "Prototyp der visuellen Darstellung der Masterarbeit von David Bürgisser")
 
         st.write("Dies ist die Masterarbeit von David Bürgisser. Diese Streamlit-Website soll einen ersten Versuch der Visualisierung der Ergebnisse liefern.")
         st.header("""Einleitung""")

@@ -41,7 +41,7 @@ nltk.download('punkt')
 
 
 def classifier(list):
-
+    """Wird benötigt zum Klassifieren mittels Zero-Shot Learning. Das verwendete Modell ist bart-large-mnli. Die Scores werden für die angezeigten Label berechnet."""
     classifier_pipeline = pipeline(
         "zero-shot-classification", model="facebook/bart-large-mnli")
 
@@ -53,15 +53,7 @@ def classifier(list):
 
 
 def text_loader(path):
-
-    from pdfminer3.layout import LAParams, LTTextBox
-    from pdfminer3.pdfpage import PDFPage
-    from pdfminer3.pdfinterp import PDFResourceManager
-    from pdfminer3.pdfinterp import PDFPageInterpreter
-    from pdfminer3.converter import PDFPageAggregator
-    from pdfminer3.converter import TextConverter
-    import io
-
+    """Nimmt einen Pfad entgegen und liest den Text aus dem PDF ein"""
     resource_manager = PDFResourceManager()
     fake_file_handle = io.StringIO()
     converter = TextConverter(
@@ -84,6 +76,7 @@ def text_loader(path):
 
 
 def remove_strange_characters(text):
+    """Beseitigt komische Charaktere im Text"""
     bad_chars = ["$", "’", "&", "|",
                  "(", ")", "[", "]", "/", "–", "- ", "™", "©"]
     text = ''.join(i for i in text if not i in bad_chars)
@@ -91,26 +84,31 @@ def remove_strange_characters(text):
 
 
 def remove_n(text):
+    """Entfernt Zeilenumbruchs-Zeichen '\n'"""
     text = re.sub(r'\n+', " ", text)
     return text.strip()
 
 
 def remove_colons(text):
+    """Entfernt alle Kommas"""
     text = re.sub(r'\s,', ",", text)
     return text.strip()
 
 
 def remove_stripes(text):
+    """Entfernt alle Bindestriche"""
     text = re.sub(r'-', "", text)
     return text.strip()
 
 
 def remove_redundant_whitespaces(text):
+    """Entfernt alle überflüssigen Abstände"""
     text = re.sub(r'\s+', " ", text)
     return text.strip()
 
 
 def remove_digits(text):
+    """Entfernt alle Zahlen (teilweise Ersetz worden)"""
     mapping = str.maketrans('', '', string.digits)
     text = text.translate(mapping)
     return text

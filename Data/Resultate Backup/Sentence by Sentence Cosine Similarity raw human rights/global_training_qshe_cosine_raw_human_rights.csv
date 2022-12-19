@@ -1,0 +1,6 @@
+,Label,Cosine Similarity Mean
+0,sustainability,"[tensor([[0.4529]]), tensor([[0.2392]]), tensor([[0.1387]]), tensor([[0.0562]])]"
+1,human rights,"[tensor([[0.0483]]), tensor([[0.1086]]), tensor([[0.0801]]), tensor([[0.0448]])]"
+2,fraud,"[tensor([[-0.0283]]), tensor([[0.0663]]), tensor([[0.0532]]), tensor([[0.0073]])]"
+3,social issues,"[tensor([[0.0938]]), tensor([[0.0830]]), tensor([[0.0840]]), tensor([[0.0606]])]"
+4,labour law,"[tensor([[0.0024]]), tensor([[0.0626]]), tensor([[-0.0288]]), tensor([[-0.1571]])]"
