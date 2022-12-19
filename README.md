@@ -1,6 +1,7 @@
 # Übersicht des Repositorys
 
 Im Folgenden wird erläutert, wie das Repository aufgebaut ist. Die Funktionen sind meist selbsterklärend und werden hier nicht weiter ausgeführt.
+Für die Durchführung der Arbeit wurde Python 3.8.3 verwendet.
 
 ## Ordnerstruktur
 
