@@ -35,7 +35,7 @@ def main():
         # col1 = st.columns([0.8])
         # with col1:               # To display the header text using css style
         st.markdown(""" <style> .font {
-        font-size:35px ; font-family: 'Arial'; color: #FF9633;} 
+        font-size:35px ; font-family: 'Arial'; color: #D1BF94;} 
         </style> """, unsafe_allow_html=True)
         st.markdown('<p class="font">Ein Versuch der Anwendung von Natural Language Processing auf Nachhaltigkeitsberichte</p>',
                     unsafe_allow_html=True)
